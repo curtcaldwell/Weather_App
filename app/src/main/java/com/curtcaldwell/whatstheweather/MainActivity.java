@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         cityTextView = findViewById(R.id.textView2);
         iconImageView = findViewById(R.id.iconImageView);
         tempTextView = findViewById(R.id.temp_text_view);
-//        lowTextView = findViewById(R.id.low_text_view);
+        lowTextView = findViewById(R.id.low_text_view);
         aSwitch = findViewById(R.id.switch1);
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("SetTextI18n")
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-//        highTextView = findViewById(R.id.high_text_view);
+        highTextView = findViewById(R.id.high_text_view);
         descTextView = findViewById(R.id.description_text_view);
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -129,9 +129,41 @@ public class MainActivity extends AppCompatActivity {
             if (weatherResponse.getWeather().get(0).getDescription() == "clear sky") {
                 iconImageView.setImageResource(R.drawable.clearsky);
 
-
             } else if (weatherResponse.getWeather().get(0).getDescription() == "few clouds") {
+
                 iconImageView.setImageResource(R.drawable.fewclouds);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "scattered clouds") {
+
+                iconImageView.setImageResource(R.drawable.scatteredclouds);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "broken clouds") {
+
+                iconImageView.setImageResource(R.drawable.brokenclouds);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "shower rain") {
+
+                iconImageView.setImageResource(R.drawable.showerrain);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "rain") {
+
+                iconImageView.setImageResource(R.drawable.rain);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "thunderstorm") {
+
+                iconImageView.setImageResource(R.drawable.thunderstorm);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "snow") {
+
+                iconImageView.setImageResource(R.drawable.snow);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "mist") {
+
+                iconImageView.setImageResource(R.drawable.mist);
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "moderate rain") {
+
+                iconImageView.setImageResource(R.drawable.moderaterain);
             }
         }
 
@@ -166,8 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
                     tempTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTemp())) + "°"));
                     cityTextView.setText(String.valueOf(response.body().getName()));
-//                    highTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTempMax())) + "°↑️"));
-//                    lowTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTempMin())) + "°↓️"));
+                    highTextView.setText(String.valueOf( Math.round(toFehrenheit(response.body().getMain().getTempMax())) + "°↑" ));
+                    lowTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTempMin())) + "°↓️"));
                     descTextView.setText(("Description: " + response.body().getWeather().get(0).getDescription()));
 
 
@@ -185,8 +217,10 @@ public class MainActivity extends AppCompatActivity {
 
     public interface OpenWeatherService {
         @GET("data/2.5/weather")
-        Call<WeatherResponse> getWeatherResponse(@Query("lat")
-                                                 String lat, @Query("lon") String lon, @Query("appid") String appid);
+        Call<WeatherResponse> getWeatherResponse(@Query("lat") String lat, @Query("lon") String lon, @Query("appid") String appid);
+
+//        @GET("data/2.5/weather")
+//        Call<WeatherResponse> getWea
 
 
     }
