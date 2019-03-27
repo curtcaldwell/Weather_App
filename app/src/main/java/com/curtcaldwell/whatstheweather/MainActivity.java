@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     WeatherResponse weatherResponse;
+    ImageView iconImageView;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -95,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
         cityTextView = findViewById(R.id.textView2);
+        iconImageView = findViewById(R.id.iconImageView);
         tempTextView = findViewById(R.id.temp_text_view);
 //        lowTextView = findViewById(R.id.low_text_view);
         aSwitch = findViewById(R.id.switch1);
@@ -121,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setIcon(View view) {
+            if (weatherResponse.getWeather().get(0).getDescription() == "clear sky") {
+                iconImageView.setImageResource(R.drawable.clearsky);
+
+
+            } else if (weatherResponse.getWeather().get(0).getDescription() == "few clouds") {
+                iconImageView.setImageResource(R.drawable.fewclouds);
+            }
+        }
 
 
     private OpenWeatherService getService(){
@@ -156,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
 //                    highTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTempMax())) + "°↑️"));
 //                    lowTextView.setText(String.valueOf(Math.round(toFehrenheit(response.body().getMain().getTempMin())) + "°↓️"));
                     descTextView.setText(("Description: " + response.body().getWeather().get(0).getDescription()));
+
+
 
                 }
 
